@@ -1,6 +1,6 @@
 import 'package:destiny_choices/main.dart';
 import 'package:flutter/material.dart';
-import 'game_screen.dart';  // Ensure you import GameScreen
+import 'game_screen.dart';
 
 class OptionsScreen extends StatefulWidget {
   @override
@@ -12,20 +12,37 @@ class _OptionsScreenState extends State<OptionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: 30,horizontal: 5),
-        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/options_destiny.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
         child: SafeArea(
           child: Column(
             children: <Widget>[
               Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+
               Align(
                 alignment: Alignment.topLeft,
                 child: FloatingActionButton(
                   backgroundColor: Colors.teal,
                   child: const Icon(Icons.arrow_back, color: Colors.black54),
-                  onPressed: () {
+                  onPressed: () async{
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Center(
+                          child: CircularProgressIndicator(color: Colors.blueGrey),
+                        );
+                      },
+                    );
+
+                    await Future.delayed(Duration(seconds: 2));
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -34,12 +51,17 @@ class _OptionsScreenState extends State<OptionsScreen> {
                     );
                   },
                 ),
-              ),],
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text("Choose Your Adventure",style: TextStyle(color: Colors.white54,),),
+              ),
+            ],
               ),
               SizedBox(height: 20),
-              _buildOptionTile(context, "The Mysterious Forest", "forest"),
-              _buildOptionTile(context, "The Mysterious Mountain", "mountain"),
-              _buildOptionTile(context, "The Futuristic, Dystopian City", "city"),
+              _buildOptionTile(context,"images/forest_option.jpg", "The Mysterious Forest", "forest","A mystery in an unkown forest"),
+              _buildOptionTile(context, "images/mountain_option.jpg","The Mysterious Mountain", "mountain","A mountain adventure to be discovered"),
+              _buildOptionTile(context, "images/future_options.jpg","The Futuristic, Dystopian City", "city","Waking up in the futuristic city in the late 2000's"),
             ],
           ),
         ),
@@ -47,10 +69,10 @@ class _OptionsScreenState extends State<OptionsScreen> {
     );
   }
 
-  Widget _buildOptionTile(BuildContext context, String title, String storyType) {
+  Widget _buildOptionTile(BuildContext context,imgUrl, String title, String storyType, String description) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 100,
+      height: 120,
       decoration: BoxDecoration(
         color: Colors.black38,
         borderRadius: BorderRadius.circular(10),
@@ -58,8 +80,18 @@ class _OptionsScreenState extends State<OptionsScreen> {
       ),
       margin: EdgeInsets.fromLTRB(5, 5, 5, 0),
       child: ListTile(
+        leading: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(imgUrl),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         title: Text(title),
-        subtitle: Text("Description"),
+        subtitle: Text(description),
         trailing: SizedBox(
           width: 90,
           height: 40,
@@ -67,9 +99,17 @@ class _OptionsScreenState extends State<OptionsScreen> {
             backgroundColor: Colors.teal,
             onPressed: () async{
 
-              Center(
-                child: CircularProgressIndicator(), // Loading spinner
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return Center(
+                    child: CircularProgressIndicator(color: Colors.blueGrey),
+                  );
+                },
               );
+
+
               await Future.delayed(Duration(seconds: 2));
 
               Navigator.push(

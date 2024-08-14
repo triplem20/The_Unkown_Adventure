@@ -66,6 +66,10 @@ flutter:
   assets:
    - images/destiny_background.jpg
    - images/destiny_background3.jpg
+   - images/options_destiny.jpg
+   - images/forest_option.jpg
+   - images/mountain_option.jpg
+   - images/future_options.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -49,7 +49,18 @@ class _GameScreenState extends State<GameScreen> {
                     child: FloatingActionButton(
                       backgroundColor: Colors.blueGrey,
                       child: const Icon(Icons.arrow_back, color: Colors.black54),
-                      onPressed: () {
+                      onPressed: ()async{
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(color: Colors.orange),
+                            );
+                          },
+                        );
+
+                        await Future.delayed(Duration(seconds: 2));
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -60,11 +71,26 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   ),
                   Align(
+                    alignment: Alignment.topCenter,
+                    child: Text("The Unkown Adventure",style: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 20),),
+                  ),
+                  Align(
                     alignment: Alignment.topRight,
                     child: FloatingActionButton(
                       backgroundColor: Colors.blueGrey,
                       child: const Icon(Icons.restart_alt, color: Colors.black54),
-                      onPressed: () {
+                      onPressed: () async{
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(color: Colors.blueGrey),
+                            );
+                          },
+                        );
+
+                        await Future.delayed(Duration(seconds: 2));
                         setState(() {
                           storyBrain.restart();
                         });
@@ -75,7 +101,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
               SizedBox(height: 5),
               Expanded(
-                flex: 12,
+                flex: 10,
                 child: Center(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,

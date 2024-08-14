@@ -63,8 +63,17 @@ class _StoryPageState extends State<StoryPage> {
                     backgroundColor: Colors.lightGreen,
                       child: Text("Start Game!"),
                       onPressed: ()async{
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(color: Colors.blueGrey),
+                            );
+                          },
+                        );
 
-                      await Future.delayed(Duration(seconds: 1));
+                        await Future.delayed(Duration(seconds: 2));
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
